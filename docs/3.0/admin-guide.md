@@ -663,16 +663,6 @@ auth_service:
     - "auth:/path/to/tokenfile"
 ```
 
-Now, on a new host:
-
-```bash
-# adding a new regular SSH node to the cluster:
-$ teleport start --roles=node --token=secret-token-value --auth-server=10.0.10.5
-
-# adding a new proxy service on the cluster:
-$ teleport start --roles=proxy --token=secret-token-value --auth-server=10.0.10.5
-```
-
 ### Short-lived Tokens
 
 A more secure way to add nodes to a cluster is to generate tokens as they are
@@ -694,6 +684,19 @@ $ tctl nodes add --ttl=5m --roles=node,proxy
 The invite token: 24be3e582c3805621658225f8c841d2002
 ```
 
+### Using Node Invitation Tokens
+
+Both static and short-lived tokens are used the same way. Execute the
+following command on a new node to add it to a cluster:
+
+```bash
+# adding a new regular SSH node to the cluster:
+$ teleport start --roles=node --token=secret-token-value --auth-server=10.0.10.5
+
+# adding a new proxy service on the cluster:
+$ teleport start --roles=proxy --token=secret-token-value --auth-server=10.0.10.5
+```
+
 As new nodes come online, they start sending ping requests every few seconds
 to the CA of the cluster. This allows everyone to explore cluster membership
 and size:
@@ -705,6 +708,23 @@ Node Name     Node ID                                  Address            Labels
 ---------     -------                                  -------            ------
 turing        d52527f9-b260-41d0-bb5a-e23b0cfe0f8f     10.1.0.5:3022      distro:ubuntu
 dijkstra      c9s93fd9-3333-91d3-9999-c9s93fd98f43     10.1.0.6:3022      distro:debian
+```
+
+### Untrusted Auth Servers 
+
+Teleport nodes use HTTPS protocol to offer the join tokens to the auth server
+irunning on `10.0.10.5` in the example above. In a zero-trust environment you
+must assume that an attacker can highjack the IP address of the auth server
+e.g. `10.0.10.5`. To prevent this from happening, you need to distribute the CA
+certificate of the auth server to the node prior to adding it:
+
+```bash
+# on the auth server:
+$ tctl auth export --type=tls > ca.cert
+
+# on the new node, prior to calling 'teleport start'
+$ mkdir -p /var/lib/teleport
+$ cp ca.cert /var/lib/teleport/ca.cert
 ```
 
 ## Revoking Invitations
