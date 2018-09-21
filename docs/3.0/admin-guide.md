@@ -1,4 +1,4 @@
-# Admin Manual
+<h1>Teleport Admin Manual</h1>
 
 This manual covers installation and configuration of Teleport and the ongoing
 management of a Teleport cluster. It assumes that the reader has good understanding

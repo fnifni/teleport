@@ -1,15 +1,19 @@
-# Introduction 
+<h1>Introduction</h1>
 
 ## What is Teleport?
 
-Gravitational Teleport is a modern SSH server for remotely accessing clusters
-of Linux servers via SSH or HTTPS. It is intended to be used instead of `sshd`
-for organizations who need:
+Gravitational Teleport is a gateway for remotely accessing clusters of Linux
+servers via SSH or Kubernetes API. Teleport provides traditional command line
+access as well as a web UI. It is intended to be used instead of traditional 
+OpenSSH for organizations who need:
 
-* SSH audit with session recording/replay.
-* Easily manage SSH trust between teams, organizations and data centers.
-* SSH into behind-firewall clusters without any open ports.
-* Role-based access control (RBAC) for SSH protocol.
+* Management of SSH trust between teams, organizations and data centers.
+* SSH access into behind-firewall environments without any open ports.
+* Role-based access control (RBAC) for SSH.
+* Single "pane of glass" to manage RBAC for both SSH and Kubernetes.
+* SSH audit log with session recording/replay.
+* Kubernetes audit log, including the recording of interactive commands executed via `kubectl`.
+* The same ease of use and familiarity of good old `ssh` command.
 
 ## Teleport Editions
 
@@ -56,7 +60,8 @@ specific to Teleport Enterprise.
 - [Okta Integration](ssh_okta) - How to integrate Teleport Enterprise with Okta.
 - [ADFS Integration](ssh_adfs) - How to integrate Teleport Enterprise with Active Directory.
 - [One Login Integration](ssh_one_login) - How to integrate Teleport Enterprise with One Login.
-- [OIDC Integration](oidc) - How to integrate Teleport Enterprise with identity providers using OpenID Connect (OIDC) / OAuth2.
+- [OIDC Integration](oidc) - How to integrate Teleport Enterprise with identity providers using OIDC/OAuth2.
+- [Kubernetes Integration](kubernetes_ssh) - How to configure Teleport to serve as a unified gateway for Kubernetes clusters and clusters of regular SSH nodes.
 
 Teleport is made by [Gravitational](https://gravitational.com/). We hope you
 enjoy using Teleport. If you have comments or questions, feel free to reach out

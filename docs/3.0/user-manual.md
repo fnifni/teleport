@@ -1,4 +1,4 @@
-# User Manual
+<h1>Teleport User Manual</h1>
 
 This User Manual covers usage of the Teleport client tool `tsh`. In this 
 document you will learn how to:

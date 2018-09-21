@@ -1,4 +1,4 @@
-# FAQ
+<h1>FAQ</h1>
 
 ### Can I use Teleport in production today?
 

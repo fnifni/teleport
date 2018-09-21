@@ -1,6 +1,7 @@
-# Architecture
+<h1>Teleport Architecture</h1>
 
-This document covers the underlying design principles of Teleport and a detailed description of Teleport architecture.
+This document covers the underlying design principles of Teleport and a
+detailed description of Teleport architecture.
 
 ## Design Principles
 

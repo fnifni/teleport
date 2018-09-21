@@ -1,4 +1,4 @@
-# Quick Start Guide
+<h1>Quick Start Guide</h1>
 
 Welcome to the Teleport Quick Start Guide!
 
