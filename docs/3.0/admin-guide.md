@@ -218,8 +218,10 @@ teleport:
     # subsequent starts
     auth_token: xxxx-token-xxxx
 
-    # when running in multi-homed or NATed environments Teleport nodes need
+    # When running in multi-homed or NATed environments Teleport nodes need
     # to know which IP it will be reachable at by other nodes
+    # 
+    # This value can be specified as FQDN e.g. host.example.com
     advertise_ip: 10.1.0.5
 
     # list of auth servers in a cluster. you will have more than one auth server
@@ -320,6 +322,10 @@ auth_service:
     # certificates
     listen_addr: 0.0.0.0:3025
 
+    # The optional DNS name the auth server if locataed behind a load balancer.
+    # (see public_addr section below)
+    public_addr: auth.example.com:3025
+
     # Pre-defined tokens for adding new nodes to a cluster. Each token specifies
     # the role a new node will be allowed to assume. The more secure way to
     # add nodes is to use `ttl node add --ttl` command to generate auto-expiring
@@ -368,6 +374,12 @@ ssh_service:
 
     # IP and the port for SSH service to bind to.
     listen_addr: 0.0.0.0:3022
+
+    # The optional public address the SSH service. This is useful if administrators
+    # want to allow users to connect to nodes directly, bypassing a Teleport proxy
+    # (see public_addr section below)
+    public_addr: node.example.com:3022
+
     # See explanation of labels in "Labeling Nodes" section below
     labels:
         role: master
@@ -409,15 +421,32 @@ proxy_service:
     web_listen_addr: 0.0.0.0:3080
 
     # The DNS name the proxy server is accessible by cluster users. Defaults to 
-    # the proxy's hostname if not specified. It is highly recommended to set it
-    # to something meaningful when running multiple proxies behind a load balancer.
-    public_addr: teleport-proxy.example.com:3080
+    # the proxy's hostname if not specified. If running multiple proxies behind 
+    # a load balancer, this name must point to the load balancer
+    # (see public_addr section below)
+    public_addr: proxy.example.com:3080
 
     # TLS certificate for the HTTPS connection. Configuring these properly is
     # critical for Teleport security.
     https_key_file: /var/lib/teleport/webproxy_key.pem
     https_cert_file: /var/lib/teleport/webproxy_cert.pem
 ```
+
+#### Public Addr
+
+Notice that all three Teleport sevices (proxy, auth, node) have an optional 
+`public_addr` property. The public address can take an IP or a DNS name. 
+It can also be a list of values:
+
+```yaml
+public_addr: ["proxy-one.example.com", "proxy-two.example.com"]
+```
+
+Specifying a public address for a Teleport service may be useful in the following use cases:
+
+* You have multiple identical services, like proxies, behind a load balancer.
+* You want Teleport to issue SSH certificate for the service with the 
+  additional principals, e.g. host names.
 
 ## Authentication
 
