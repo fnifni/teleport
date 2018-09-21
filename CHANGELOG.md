@@ -1,5 +1,28 @@
 # Changelog
 
+## 3.0
+
+This is a major Teleport release which introduces support for Kubernetes clusters.
+
+#### Kubernetes Support
+
+* `tsh login` can retreive and install certificates for both Kubernetes and SSH
+  at the same time. 
+* Full audit log support for `kubectl` commands, including recording of the sessions
+  if `kubectl exec` command was interactive.
+* Unified (AKA "single pane of glass") RBAC for both SSH and Kubernetes permissions. 
+
+For more information about Kubernetes support, take a look at 
+the [Kubernetes and SSH Integration Guide](https://gravitational.com/teleport/docs/kubernetes_ssh/)
+
+#### Upgrading
+
+Follow the [recommended upgrade procedure](https://gravitational.com/teleport/docs/admin-guide/#upgrading-teleport) 
+to upgrade to this version.
+
+**WARNING:** if you are using Teleport with the etcd back-end, make sure your
+`etcd` version is 3.3 or newer prior to upgrading to Teleport 3.0.
+
 ## 2.7.4
 
 This release of Teleport focuses on bugfixes.

@@ -93,7 +93,7 @@ until existing clients disconnect.
 
 !!! warning "Version warning":
     Graceful restarts only work if Teleport is deployed using network-based storage
-    like DynamoDB or etcd. Future versions of Teleport will not have this limitation.
+    like DynamoDB or etcd 3.3+. Future versions of Teleport will not have this limitation.
 
 You can also perform a less automatic restarts/upgrades by sending `kill` signals
 to a Teleport daemon manually. 
@@ -1637,20 +1637,21 @@ proxy is running without problems.
     The values from the cache file will take precedence over the configuration
     file.
 
-We'll cover how to use `etcd` and `DynamoDB` storage back-ends to make Teleport highly available below.
+We'll cover how to use `etcd` and `DynamoDB` storage back-ends to make Teleport
+highly available below.
 
 ### Using etcd
 
 Teleport can use [etcd](https://coreos.com/etcd/) as a storage backend to
-achieve highly available deployments.  Obviously, you must take steps to
-protect access to `etcd` in this configuration because that is where Teleport
-secrets like keys and user records will be stored.
+achieve highly available deployments. You must take steps to protect access 
+to `etcd` in this configuration because that is where Teleport secrets like 
+keys and user records will be stored.
 
 To configure Teleport for using etcd as a storage back-end:
 
-* Install etcd and configure peer and client TLS authentication using
-   [etcd security guide](https://coreos.com/etcd/docs/latest/security.html).
-
+* Make sure you are using **etcd version 3.3** or newer.
+* Install etcd and configure peer and client TLS authentication using.
+  [etcd security guide](https://coreos.com/etcd/docs/latest/security.html).
 * Configure all Teleport Auth servers to use etcd in the "storage" section of
   the config file as shown below.
 * Deploy several auth servers connected to etcd back-end.
@@ -1660,6 +1661,7 @@ To configure Teleport for using etcd as a storage back-end:
 teleport:
   storage:
      type: etcd
+
      # list of etcd peers to connect to:
      peers: ["https://172.17.0.1:4001", "https://172.17.0.2:4001"]
 
