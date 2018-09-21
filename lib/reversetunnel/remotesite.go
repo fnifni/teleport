@@ -100,6 +100,10 @@ func (s *remoteSite) getRemoteClient() (auth.ClientI, bool, error) {
 		}
 		tlsConfig := s.srv.ClientTLS.Clone()
 		tlsConfig.RootCAs = pool
+		// encode the name of this cluster to identify this cluster,
+		// connecting to the remote one (it is used to find the right certificate
+		// authority to verify)
+		tlsConfig.ServerName = auth.EncodeClusterName(s.srv.ClusterName)
 		clt, err := auth.NewTLSClientWithDialer(s.authServerContextDialer, tlsConfig)
 		if err != nil {
 			return nil, false, trace.Wrap(err)
