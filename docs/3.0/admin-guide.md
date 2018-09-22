@@ -1945,6 +1945,24 @@ Sometimes you may want to reset `teleport` to a clean state. This can be accompl
 by erasing everything under `"data_dir"` directory. Assuming the default location,
 `rm -rf /var/lib/teleport/*` will do.
 
+Teleport also supports HTTP endpoints for monitoring purposes. They are disabled
+by default, but you can enable them:
+
+```bash
+$ teleport start --diag-addr=127.0.0.1:3000
+```
+
+Now you can see the monitoring information by visiting several endpoints:
+
+* `http://127.0.0.1:3000/metrics` is the list of internal metrics Teleport is tracking. 
+   It is compatible with [Prometheus](https://prometheus.io/) collectors.
+* `http://127.0.0.1:3000/healthz` returns "OK" if the process is healthy or `503` otherwise.
+* `http://127.0.0.1:3000/readyz` is similar to `/healthz`, but it returns "OK"
+  _only after_ the node successfully joined the cluster, i.e. it draws the
+  difference between "healthy" and "ready".
+* `http://127.0.0.1:3000/debug/pprof/` is Golang's standard profiler. It's only
+  available when `-d` flag is given in addition to `--diag-addr`
+
 ## Getting Help
 
 Please open an [issue on Github](https://github.com/gravitational/teleport/issues).
