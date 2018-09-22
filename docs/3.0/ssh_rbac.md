@@ -184,7 +184,9 @@ spec:
 
   deny:
     node_labels:
-      'workload': 'database'
+      # multiple labels are interpreted as an "or" operation.  in this case
+      # Teleport will deny access to any node labeled as 'database' or 'backup'
+      'workload': ['database', 'backup']
 ```
 
 !!! tip "Dynamic RBAC":
