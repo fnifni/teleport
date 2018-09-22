@@ -284,6 +284,28 @@ teleport:
       - hmac-sha1
       - hmac-sha1-96
 
+    # List of the supported ciphersuites. If this section is not specified, 
+    # only the default ciphersuites are enabled.
+    ciphersuites:
+       - tls-rsa-with-aes-128-cbc-sha # default
+       - tls-rsa-with-aes-256-cbc-sha # default
+       - tls-rsa-with-aes-128-cbc-sha256
+       - tls-rsa-with-aes-128-gcm-sha256
+       - tls-rsa-with-aes-256-gcm-sha384
+       - tls-ecdhe-ecdsa-with-aes-128-cbc-sha
+       - tls-ecdhe-ecdsa-with-aes-256-cbc-sha
+       - tls-ecdhe-rsa-with-aes-128-cbc-sha
+       - tls-ecdhe-rsa-with-aes-256-cbc-sha
+       - tls-ecdhe-ecdsa-with-aes-128-cbc-sha256
+       - tls-ecdhe-rsa-with-aes-128-cbc-sha256
+       - tls-ecdhe-rsa-with-aes-128-gcm-sha256
+       - tls-ecdhe-ecdsa-with-aes-128-gcm-sha256
+       - tls-ecdhe-rsa-with-aes-256-gcm-sha384
+       - tls-ecdhe-ecdsa-with-aes-256-gcm-sha384
+       - tls-ecdhe-rsa-with-chacha20-poly1305
+       - tls-ecdhe-ecdsa-with-chacha20-poly1305
+
+
 # This section configures the 'auth service':
 auth_service:
     # Turns 'auth' role on. Default is 'yes'
